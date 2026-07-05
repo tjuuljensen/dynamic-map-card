@@ -22,7 +22,7 @@ type: module
 
 ### Manual
 
-1. Copy `dist/dynamic-map-card.js` to `/config/www/community/dynamic-map-card/dynamic-map-card.js`.
+1. Copy `dynamic-map-card.js` to `/config/www/community/dynamic-map-card/dynamic-map-card.js`.
 2. Add this Lovelace resource:
 
 ```yaml
@@ -158,12 +158,12 @@ If the resolved mode is `auto`, the native map card and the active Home Assistan
 
 ## Release Model
 
-Published HACS versions should use tagged GitHub releases. The release workflow builds `dist/dynamic-map-card.js` and uploads that file as a release asset for tags named `vX.Y.Z`.
+Published HACS versions should use tagged GitHub releases. The release workflow builds `dynamic-map-card.js` and uploads that file as a release asset for tags named `vX.Y.Z`.
 
 Release checklist:
 
 1. Bump `package.json` version and `CARD_VERSION` in `src/dynamic-map-card.ts`.
 2. Run `npm ci`, `npm run typecheck`, and `npm run build`.
-3. Commit the source and rebuilt `dist/dynamic-map-card.js`.
+3. Commit the source and rebuilt `dynamic-map-card.js`.
 4. Create and push a tag such as `v0.1.1`.
 5. Confirm the GitHub release contains `dynamic-map-card.js`.

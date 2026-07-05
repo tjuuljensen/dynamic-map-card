@@ -1,6 +1,5 @@
 {
   "name": "Dynamic Map Card",
   "render_readme": true,
-  "filename": "dist/dynamic-map-card.js"
+  "filename": "dynamic-map-card.js"
 }
-
