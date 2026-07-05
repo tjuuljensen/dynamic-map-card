@@ -193,7 +193,9 @@ function isThemeMode(value: unknown): value is ThemeMode {
   return typeof value === "string" && VALID_THEME_MODES.has(value as ThemeMode);
 }
 
-customElements.define("dynamic-map-card", DynamicMapCard);
+if (!customElements.get("dynamic-map-card")) {
+  customElements.define("dynamic-map-card", DynamicMapCard);
+}
 
 console.info(
   `%cDYNAMIC-MAP-CARD%c ${CARD_VERSION}`,
