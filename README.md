@@ -1,6 +1,6 @@
 # Dynamic Map Card
 
-`dynamic-map-card` is a Home Assistant Lovelace frontend card that renders the native map card and dynamically sets the native map theme from a configured entity state.
+`dynamic-map-card` is a Home Assistant Lovelace frontend card that renders the native map card and dynamically sets the native `theme_mode` option from a configured entity state.
 
 It exists for dashboards where the map should follow something more specific than the global Home Assistant theme, such as using a light map while `sun.sun` is `above_horizon` and a dark map while it is `below_horizon`.
 
@@ -91,13 +91,13 @@ modes:
 default_mode: auto
 ```
 
-Native map-card options such as `entities`, `hours_to_show`, `default_zoom`, `aspect_ratio`, `auto_fit`, `geo_location_sources`, and `dark_mode` are passed through to the native map card. The wrapper sets `type: map` internally. For compatibility with older Home Assistant frontend versions, dynamic `light` and `dark` modes are applied through the native `dark_mode` option; `auto` leaves the native map card to follow the active Home Assistant theme.
+Native map-card options such as `entities`, `hours_to_show`, `default_zoom`, `aspect_ratio`, `auto_fit`, `geo_location_sources`, `dark_mode`, and `theme_mode` are passed through to the native map card. The wrapper sets `type: map` internally.
 
 ## Dynamic Options
 
 `mode_entity` is the entity whose state controls the map theme mode. It can be any Home Assistant entity with a string state, such as `sun.sun`, an `input_boolean`, a `binary_sensor`, an `input_select`, or a regular sensor.
 
-`modes` maps entity states to map theme mode values. Supported output values are:
+`modes` maps entity states to native map-card `theme_mode` values. Supported output values are:
 
 - `light`
 - `dark`
@@ -122,7 +122,7 @@ The card resolves `theme_mode` in this order:
 
 1. A valid dynamic mode from `mode_entity` and `modes`.
 2. `default_mode`, when explicitly configured.
-3. User-provided `theme_mode`, when valid.
+3. User-provided native `theme_mode`, when valid.
 4. `auto`.
 
 Fallback is used when `mode_entity` is missing, unavailable, unknown, the current state is not found in `modes`, or the mapped mode is invalid.
@@ -139,7 +139,7 @@ modes:
   below_horizon: dark
 ```
 
-When `sun.sun` is `below_horizon`, the map uses `dark`. For any other state, the map falls back to the configured `theme_mode: light`.
+When `sun.sun` is `below_horizon`, the map uses `dark`. For any other state, the map falls back to the configured native `theme_mode: light`.
 
 ## Validation
 
@@ -154,7 +154,7 @@ Invalid configuration is shown as a Lovelace card error. The card validates that
 
 The card creates Home Assistant's native `hui-map-card` through Lovelace card helpers and passes native map-card options through unchanged. Compatibility with specific native map-card options still depends on the Home Assistant frontend version installed in your Home Assistant instance.
 
-If the resolved mode is `auto`, the native map card and the active Home Assistant theme decide the final map appearance.
+If `theme_mode` is resolved to `auto`, the native map card and the active Home Assistant theme decide the final map appearance.
 
 ## Release Model
 
