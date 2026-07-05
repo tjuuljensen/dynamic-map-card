@@ -13,7 +13,6 @@ type DynamicMapCardConfig = {
   mode_entity?: string;
   modes?: Record<string, unknown>;
   default_mode?: unknown;
-  debug?: unknown;
   theme_mode?: unknown;
   [key: string]: unknown;
 };
@@ -37,7 +36,7 @@ declare global {
 }
 
 const CARD_VERSION = "0.1.2";
-const CUSTOM_KEYS = new Set(["mode_entity", "modes", "default_mode", "debug"]);
+const CUSTOM_KEYS = new Set(["mode_entity", "modes", "default_mode"]);
 const VALID_THEME_MODES = new Set<ThemeMode>(["light", "dark", "auto"]);
 
 class DynamicMapCard extends HTMLElement {
@@ -47,13 +46,11 @@ class DynamicMapCard extends HTMLElement {
   private _lastThemeMode?: ThemeMode;
   private _helpers?: LovelaceCardHelpers;
   private _loadPromise?: Promise<void>;
-  private _lastNativeConfig?: Record<string, unknown>;
 
   setConfig(config: DynamicMapCardConfig): void {
     validateConfig(config);
     this._config = config;
     this._lastThemeMode = undefined;
-    this._lastNativeConfig = undefined;
     void this._ensureCard();
   }
 
@@ -113,9 +110,7 @@ class DynamicMapCard extends HTMLElement {
 
     this.replaceChildren(card);
     this._card = card;
-    this._lastNativeConfig = mapConfig;
     this._lastThemeMode = mapConfig.theme_mode as ThemeMode;
-    logDebug(this._config, mapConfig, this._hass);
   }
 }
 
@@ -142,10 +137,6 @@ function validateConfig(config: DynamicMapCardConfig): void {
 
   if (config.default_mode !== undefined && !isThemeMode(config.default_mode)) {
     throw new Error("dynamic-map-card default_mode must be light, dark, or auto.");
-  }
-
-  if (config.debug !== undefined && typeof config.debug !== "boolean") {
-    throw new Error("dynamic-map-card debug must be a boolean.");
   }
 }
 
@@ -201,19 +192,6 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 
 function isThemeMode(value: unknown): value is ThemeMode {
   return typeof value === "string" && VALID_THEME_MODES.has(value as ThemeMode);
-}
-
-function logDebug(config: DynamicMapCardConfig, mapConfig: Record<string, unknown>, hass?: HomeAssistant): void {
-  if (config.debug !== true) {
-    return;
-  }
-
-  console.debug("dynamic-map-card config", {
-    mode_entity: config.mode_entity,
-    mode_entity_state: config.mode_entity && hass ? hass.states[config.mode_entity]?.state : undefined,
-    resolved_theme_mode: mapConfig.theme_mode,
-    native_map_config: mapConfig,
-  });
 }
 
 if (!customElements.get("dynamic-map-card")) {
