@@ -35,8 +35,8 @@ declare global {
   }
 }
 
-const CARD_VERSION = "0.1.0";
-const CUSTOM_KEYS = new Set(["mode_entity", "modes", "default_mode"]);
+const CARD_VERSION = "0.1.1";
+const CUSTOM_KEYS = new Set(["mode_entity", "modes", "default_mode", "theme_mode"]);
 const VALID_THEME_MODES = new Set<ThemeMode>(["light", "dark", "auto"]);
 
 class DynamicMapCard extends HTMLElement {
@@ -109,7 +109,7 @@ class DynamicMapCard extends HTMLElement {
 
     this.replaceChildren(card);
     this._card = card;
-    this._lastThemeMode = mapConfig.theme_mode as ThemeMode;
+    this._lastThemeMode = resolveThemeMode(this._config, this._hass);
   }
 }
 
@@ -149,7 +149,13 @@ function buildMapConfig(config: DynamicMapCardConfig, hass?: HomeAssistant): Rec
   }
 
   mapConfig.type = "map";
-  mapConfig.theme_mode = resolveThemeMode(config, hass);
+
+  const themeMode = resolveThemeMode(config, hass);
+  if (themeMode === "dark") {
+    mapConfig.dark_mode = true;
+  } else if (themeMode === "light") {
+    mapConfig.dark_mode = false;
+  }
 
   return mapConfig;
 }

@@ -37,10 +37,11 @@ function r(e, t, r) {
 }
 //#endregion
 //#region src/dynamic-map-card.ts
-var i = "0.1.0", a = /* @__PURE__ */ new Set([
+var i = "0.1.1", a = /* @__PURE__ */ new Set([
 	"mode_entity",
 	"modes",
-	"default_mode"
+	"default_mode",
+	"theme_mode"
 ]), o = /* @__PURE__ */ new Set([
 	"light",
 	"dark",
@@ -76,7 +77,7 @@ var i = "0.1.0", a = /* @__PURE__ */ new Set([
 			this._helpers = await window.loadCardHelpers();
 		}
 		let t = this._helpers.createCardElement(e);
-		this._hass && (t.hass = this._hass), this.replaceChildren(t), this._card = t, this._lastThemeMode = e.theme_mode;
+		this._hass && (t.hass = this._hass), this.replaceChildren(t), this._card = t, this._lastThemeMode = u(this._config, this._hass);
 	}
 };
 function c(e) {
@@ -91,7 +92,9 @@ function c(e) {
 function l(e, t) {
 	let n = {};
 	for (let [t, r] of Object.entries(e)) a.has(t) || (n[t] = r);
-	return n.type = "map", n.theme_mode = u(e, t), n;
+	n.type = "map";
+	let r = u(e, t);
+	return r === "dark" ? n.dark_mode = !0 : r === "light" && (n.dark_mode = !1), n;
 }
 function u(e, t) {
 	return d(e, t) || (p(e.default_mode) ? e.default_mode : p(e.theme_mode) ? e.theme_mode : "auto");
