@@ -1,6 +1,6 @@
 {
   "name": "dynamic-map-card",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Home Assistant Lovelace map card wrapper that dynamically resolves theme_mode from an entity state.",
   "type": "module",
   "private": true,
