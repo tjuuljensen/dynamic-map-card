@@ -71,7 +71,7 @@ default_mode: auto
 
 ## Native Map-Card Options
 
-Use the same flat YAML shape as Home Assistant's native map card. Do not nest the native map card under a `card:` key.
+Use the same flat YAML shape as Home Assistant's native map card. 
 
 ```yaml
 type: custom:dynamic-map-card
