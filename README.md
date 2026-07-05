@@ -4,7 +4,7 @@
 
 It exists for dashboards where the map should follow something more specific than the global Home Assistant theme, such as using a light map while `sun.sun` is `above_horizon` and a dark map while it is `below_horizon`.
 
-This is a frontend card, not a Home Assistant backend integration. It passes normal native map-card options through unchanged and only adds a small dynamic `theme_mode` layer.
+![Dynamic Map Card preview](docs/images/logo.png)
 
 ## Installation
 
@@ -71,7 +71,7 @@ default_mode: auto
 
 ## Native Map-Card Options
 
-Use the same flat YAML shape as Home Assistant's native map card. 
+Use the same flat YAML shape as Home Assistant's native map card.
 
 ```yaml
 type: custom:dynamic-map-card
@@ -156,3 +156,14 @@ The card creates Home Assistant's native `hui-map-card` through Lovelace card he
 
 If `theme_mode` is resolved to `auto`, the native map card and the active Home Assistant theme decide the final map appearance.
 
+## Release Model
+
+Published HACS versions should use tagged GitHub releases. The release workflow builds `dist/dynamic-map-card.js` and uploads that file as a release asset for tags named `vX.Y.Z`.
+
+Release checklist:
+
+1. Bump `package.json` version and `CARD_VERSION` in `src/dynamic-map-card.ts`.
+2. Run `npm ci`, `npm run typecheck`, and `npm run build`.
+3. Commit the source and rebuilt `dist/dynamic-map-card.js`.
+4. Create and push a tag such as `v0.1.1`.
+5. Confirm the GitHub release contains `dynamic-map-card.js`.

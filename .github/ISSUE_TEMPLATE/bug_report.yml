@@ -1,0 +1,40 @@
+name: Bug report
+description: Report a reproducible problem with Dynamic Map Card.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Card configuration
+      description: Paste the Lovelace YAML for the affected card.
+      render: yaml
+    validations:
+      required: true
+  - type: input
+    id: ha-version
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.7.0"
+    validations:
+      required: true
+  - type: input
+    id: card-version
+    attributes:
+      label: Dynamic Map Card version
+      placeholder: "v0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Browser console output
+      description: Include relevant browser console errors if available.
+      render: text

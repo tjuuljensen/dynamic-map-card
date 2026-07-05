@@ -1,0 +1,24 @@
+name: Feature request
+description: Suggest an improvement to Dynamic Map Card.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: What dashboard behavior do you want to support?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the change you would like.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional context about other approaches you tried.
