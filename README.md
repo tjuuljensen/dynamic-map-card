@@ -1,5 +1,9 @@
 # Dynamic Map Card
 
+```
+### Archived October 2026 as the new map behaviour in HA handles dark mode and sizing properly. ###
+```
+
 `dynamic-map-card` is a Home Assistant Lovelace frontend card that renders the native map card and dynamically sets the native `theme_mode` option from a configured entity state.
 
 It exists for dashboards where the map should follow something more specific than the global Home Assistant theme, such as using a light map while `sun.sun` is `above_horizon` and a dark map while it is `below_horizon`.
